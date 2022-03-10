@@ -71,11 +71,12 @@ def anime(update, context):
         keyb.append(
             [
                 InlineKeyboardButton(
-                    text=f"{titles.get('en') if titles.get('en') else titles.get('ja_jp')}",
+                    text=f"{titles.get('en') or titles.get('ja_jp')}",
                     callback_data=f"anime_{x[0]}_{user.id}",
                 )
             ]
         )
+
 
     msg.reply_text(
         f"🔍 Search results for <b>{msg.text}</b>:",

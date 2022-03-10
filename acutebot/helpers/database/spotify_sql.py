@@ -47,17 +47,16 @@ def update_creds(
     user_id, spotify_id=None, spotify_access_token=None, spotify_refresh_token=None
 ):
     with SPT_INSERTION_LOCK:
-        sptcreds = SESSION.query(SpotifyCreds).get(user_id)
-        if not sptcreds:
+        if sptcreds := SESSION.query(SpotifyCreds).get(user_id):
+            sptcreds.spotify_id = spotify_id
+            sptcreds.spotify_access_token = spotify_access_token
+            sptcreds.spotify_refresh_token = spotify_refresh_token
+        else:
             sptcreds = SpotifyCreds(
                 user_id, spotify_id, spotify_access_token, spotify_refresh_token
             )
             SESSION.add(sptcreds)
             SESSION.flush()
-        else:
-            sptcreds.spotify_id = spotify_id
-            sptcreds.spotify_access_token = spotify_access_token
-            sptcreds.spotify_refresh_token = spotify_refresh_token
         SESSION.commit()
 
 

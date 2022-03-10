@@ -110,7 +110,7 @@ def shell(update, context):
         res = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE,)
         stdout, stderr = res.communicate()
         result = str(stdout.decode().strip()) + str(stderr.decode().strip())
-        bot.editMessageText("<pre>" + result + "</pre>", chat.id, rep.message_id)
+        bot.editMessageText(f"<pre>{result}</pre>", chat.id, rep.message_id)
     except Exception as e:
         bot.editMessageText(str(e), chat.id, rep.message_id)
 

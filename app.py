@@ -43,7 +43,7 @@ class SpotifyCallback(tornado.web.RequestHandler):
             )
             print("user logged in successfully")
             bot.sendMessage(callback_state, "Successfully logged in!")
-            self.redirect("https://t.me/" + bot.username)
+            self.redirect(f"https://t.me/{bot.username}")
 
 
 urls = [(r"/", MainHandler), (r"/acutebot/webserver", SpotifyCallback)]
