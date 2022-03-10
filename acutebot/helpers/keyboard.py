@@ -32,14 +32,13 @@ def keyboard(
     """
 
     keyblist = [[]]
-    if ytkey:
-        if len(ytkey["results"]) > 0:
-            ytkey = ytkey["results"][0]["key"]
-            keyblist[0].append(
-                InlineKeyboardButton(
-                    text="📹 Trailer", url=f"https://www.youtube.com/watch?v={ytkey}"
-                )
+    if ytkey and len(ytkey["results"]) > 0:
+        ytkey = ytkey["results"][0]["key"]
+        keyblist[0].append(
+            InlineKeyboardButton(
+                text="📹 Trailer", url=f"https://www.youtube.com/watch?v={ytkey}"
             )
+        )
 
     if homepage and homepage != "":
         keyblist.append([InlineKeyboardButton(text="📃 Homepage", url=homepage)])

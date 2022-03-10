@@ -57,15 +57,11 @@ def getsubs(update, context):
         msg.reply_text(st.NOT_FOUND)
         return -1
 
-    keyb = []
-    for x in resarr:
-        keyb.append(
-            [
+    keyb = [[
                 InlineKeyboardButton(
                     text=x.get("SIQ"), callback_data=f"subs_{x.get('DMCA_ID')}"
                 )
-            ]
-        )
+            ] for x in resarr]
     msg.reply_text(st.SUBS_STR.format(text), reply_markup=InlineKeyboardMarkup(keyb))
     return ConversationHandler.END
 

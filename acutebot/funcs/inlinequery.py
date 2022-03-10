@@ -51,9 +51,7 @@ def inlinequery(update, context):
             res = res.json()
 
             if len(res["results"]) > 0:
-                for con in res["results"]:
-                    results.append(
-                        article(
+                results.extend(article(
                             title=con.get("name", "N/A"),
                             description=con.get("first_air_date", "N/A"),
                             thumb_url=f"{pic_url}/w500/{con['poster_path']}",
@@ -69,9 +67,7 @@ def inlinequery(update, context):
                             reply_markup=InlineKeyboardMarkup(
                                 keyboard(title=con["original_name"], tv_id=con["id"])
                             ),
-                        )
-                    )
-
+                        ) for con in res["results"])
         elif query.startswith("<movie>"):
             query = query.replace("<movie>", "")
             res = r.get(
@@ -85,9 +81,7 @@ def inlinequery(update, context):
             res = res.json()
 
             if len(res["results"]) > 0:
-                for con in res["results"]:
-                    results.append(
-                        article(
+                results.extend(article(
                             title=con.get("title", "N/A"),
                             description=con.get("release_date", "N/A"),
                             thumb_url=f"{pic_url}/w500/{con['poster_path']}",
@@ -103,9 +97,7 @@ def inlinequery(update, context):
                             reply_markup=InlineKeyboardMarkup(
                                 keyboard(title=con["original_title"], mv_id=con["id"])
                             ),
-                        )
-                    )
-
+                        ) for con in res["results"])
         elif query.startswith("<anime>"):
             query = query.replace("<anime>", "")
             res = r.get(f"{anime_url}/anime?filter%5Btext%5D={query}")

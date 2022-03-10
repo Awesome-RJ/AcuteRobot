@@ -28,7 +28,7 @@ from telegram.ext import CommandHandler, CallbackQueryHandler, Filters
 
 # Import all funcs in main
 for func_name in ALL_FUNCS:
-    imported_module = importlib.import_module("acutebot.funcs." + func_name)
+    imported_module = importlib.import_module(f"acutebot.funcs.{func_name}")
 
 
 class Starter:

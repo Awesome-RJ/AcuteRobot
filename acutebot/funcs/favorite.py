@@ -40,8 +40,7 @@ def add_favorite(update, context):
 def list_favorite(update, context):
     msg = update.effective_message
     user = update.effective_user
-    fav = sql.get_fav(user.id)
-    if fav:
+    if fav := sql.get_fav(user.id):
         text = "<b>🔖 Your watchlist:</b>\n\n"
         for title in fav:
             text += f"• {title.data}\n"

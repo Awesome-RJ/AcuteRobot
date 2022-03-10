@@ -102,16 +102,12 @@ def tv(update, context):
         msg.reply_text(st.NOT_FOUND)
         return -1
 
-    keyb = []
-    for x in results:
-        keyb.append(
-            [
+    keyb = [[
                 InlineKeyboardButton(
                     text=x.get("original_name"),
                     callback_data=f"tv_{x.get('id')}_{user.id}",
                 )
-            ]
-        )
+            ] for x in results]
     msg.reply_text(
         f"🔍 Search results for <b>{msg.text}</b>:",
         reply_markup=InlineKeyboardMarkup(keyb[:6]),

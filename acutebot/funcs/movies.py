@@ -102,15 +102,16 @@ def movie(update, context):
         msg.reply_text(st.NOT_FOUND)
         return -1
 
-    keyb = []
-    for x in results:
-        keyb.append(
-            [
-                InlineKeyboardButton(
-                    text=x.get("title"), callback_data=f"movie_{x.get('id')}_{user.id}"
-                )
-            ]
-        )
+    keyb = [
+        [
+            InlineKeyboardButton(
+                text=x.get("title"),
+                callback_data=f"movie_{x.get('id')}_{user.id}",
+            )
+        ]
+        for x in results
+    ]
+
     msg.reply_text(
         f"🔍 Search results for <b>{msg.text}</b>:",
         reply_markup=InlineKeyboardMarkup(keyb[:6]),

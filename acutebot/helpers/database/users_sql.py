@@ -46,13 +46,12 @@ def ensure_bot_in_db():
 
 def update_user(user_id, username):
     with INSERTION_LOCK:
-        user = SESSION.query(Users).get(user_id)
-        if not user:
+        if user := SESSION.query(Users).get(user_id):
+            user.username = username
+        else:
             user = Users(user_id, username)
             SESSION.add(user)
             SESSION.flush()
-        else:
-            user.username = username
         SESSION.commit()
 
 

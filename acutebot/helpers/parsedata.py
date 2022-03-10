@@ -22,19 +22,13 @@ from telegram import InlineQueryResultArticle, InputTextMessageContent
 def byname(val):
     if val == "":
         return "Not available"
-    datalist = []
-    for x in val:
-        datalist.append(x["name"])
-    data = ", ".join(datalist)
-    return data
+    datalist = [x["name"] for x in val]
+    return ", ".join(datalist)
 
 
 def currency(val):
     """Format currency"""
-    if val == "":
-        return "Not available"
-    curr = "${:,.2f}".format(val)
-    return curr
+    return "Not available" if val == "" else "${:,.2f}".format(val)
 
 
 def byindex(val):
@@ -46,7 +40,7 @@ def byindex(val):
 
 def tvruntime(val):
     try:
-        return str(val[0]) + " minutes"
+        return f'{str(val[0])} minutes'
     except IndexError:
         return "Not Available"
 
@@ -73,7 +67,7 @@ def paginate(iterable, page_size):
             itertools.islice(i1, page_size, None),
             list(itertools.islice(i2, page_size)),
         )
-        if len(page) == 0:
+        if not page:
             break
         yield list(page)
 
